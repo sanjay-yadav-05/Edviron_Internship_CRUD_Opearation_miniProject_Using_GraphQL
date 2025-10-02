@@ -1,98 +1,191 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 💳 Payment Gateway Service (NestJS + GraphQL + MongoDB)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A mini backend service that simulates a **payment gateway system** (like Razorpay/Stripe/PayPal).
+It provides **GraphQL APIs** to manage payments and supports **MongoDB aggregation pipelines** for analytics.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* ✅ **Create Payment** – initiate a new payment request
+* ✅ **Read Payments** – fetch all payments or by ID
+* ✅ **Update Payment** – change status (`PENDING → SUCCESS/FAILED`) & add transaction ID
+* ✅ **Delete Payment** – remove payment records
+* ✅ **Analytics with MongoDB Aggregation** – revenue reports, payment method usage, etc.
 
-## Project setup
+---
 
-```bash
-$ npm install
+## 📂 Folder Structure
+
+```
+nestjs-payment-service/
+ ├── src/
+ │   ├── modules/
+ │   │   ├── payments/
+ │   │   │   ├── dto/                   # GraphQL input DTOs
+ │   │   │   │   ├── create-payment.input.ts
+ │   │   │   │   ├── update-payment.input.ts
+ │   │   │   ├── entities/              # MongoDB schema + GraphQL type
+ │   │   │   │   ├── payment.entity.ts
+ │   │   │   ├── payments.resolver.ts   # GraphQL queries & mutations
+ │   │   │   ├── payments.service.ts    # Business logic (CRUD + aggregation)
+ │   │   │   ├── payments.module.ts     # NestJS module definition
+ │   │
+ │   ├── common/                        # Shared code (enums, filters, guards, interceptors)
+ │   │   ├── enums/
+ │   │   │   ├── payment-status.enum.ts
+ │   │
+ │   ├── app.module.ts                  # Root module
+ │   ├── main.ts                        # Entry point
+ │
+ ├── test/                              # Jest tests
+ ├── .env                               # Environment variables
+ ├── package.json
+ ├── README.md
 ```
 
-## Compile and run the project
+---
+
+## ⚡ Tech Stack
+
+* **Backend Framework**: [NestJS](https://nestjs.com/)
+* **API**: GraphQL with Apollo Server
+* **Database**: MongoDB with Mongoose
+* **Language**: TypeScript
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone the repo
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/<your-username>/nestjs-payment-service.git
+cd nestjs-payment-service
 ```
 
-## Run tests
+### 2. Install dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+### 3. Configure environment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in root:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```
+MONGO_URI=mongodb://localhost:27017/payments
+PORT=3000
+```
+
+### 4. Run MongoDB
+
+If running locally:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+mongod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+(or use MongoDB Atlas connection string in `.env`)
 
-## Resources
+### 5. Start the app
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+App runs at → `http://localhost:3000/graphql`
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🎯 Example GraphQL Queries
 
-## Stay in touch
+### Create Payment
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```graphql
+mutation {
+  createPayment(createPaymentInput: {
+    userId: "u123"
+    amount: 1500
+    currency: "INR"
+    method: "UPI"
+  }) {
+    id
+    status
+  }
+}
+```
 
-## License
+### Get All Payments
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```graphql
+query {
+  payments {
+    id
+    userId
+    amount
+    currency
+    method
+    status
+  }
+}
+```
+
+### Update Payment
+
+```graphql
+mutation {
+  updatePayment(updatePaymentInput: {
+    id: "123"
+    status: "SUCCESS"
+    transactionId: "TXN98765"
+  }) {
+    id
+    status
+    transactionId
+  }
+}
+```
+
+---
+
+## 📊 MongoDB Aggregation Examples
+
+**Total Revenue by Currency**
+
+```js
+db.payments.aggregate([
+  { $match: { status: "SUCCESS" } },
+  { $group: { _id: "$currency", totalRevenue: { $sum: "$amount" } } }
+])
+```
+
+**Payment Methods Usage**
+
+```js
+db.payments.aggregate([
+  { $group: { _id: "$method", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+])
+```
+
+---
+
+## 🏗 Future Improvements
+
+* 🔐 Add authentication & role-based access (admin vs user)
+* 💳 Integrate Razorpay/Stripe Sandbox APIs for real payment flow
+* 📈 Build analytics dashboard (NestJS + React/Next.js frontend)
+* 📦 Containerize with Docker for deployment
+
+---
+
+## 👨‍💻 Author
+
+**Sanjay Yadav** – SDE Intern @ Edviron
+🚀 Passionate about full-stack development, scalable backend systems, and fintech solutions.
+
+---
+
+Made with ❤️ using NestJS, GraphQL & MongoDB
