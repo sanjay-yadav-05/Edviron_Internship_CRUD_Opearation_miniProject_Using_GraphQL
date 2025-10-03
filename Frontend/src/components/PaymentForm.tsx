@@ -56,7 +56,7 @@ const PaymentForm: React.FC = () => {
       ...prev,
       [name]: name === "amount" ? parseFloat(value) : value,
     }));
-  }
+  };
 
   return (
     <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto", mt: 4 }}>

@@ -104,3 +104,28 @@ export const PaymentStatus = {
     paymentStatusStats: string; // raw JSON string
   }
   
+
+  export interface RevenueByCurrency {
+    _id: string; // currency code
+    totalRevenue: number;
+    count: number; // number of transactions
+  }
+  
+  export interface PaymentMethodStats {
+    _id: string; // method name
+    totalAmount: number;
+    count: number;
+  }
+  
+  export interface PaymentStatusStats {
+    _id: string; // status
+    totalAmount: number;
+    count: number;
+  }
+  
+  export interface AnalyticsData {
+    revenueByCurrency: RevenueByCurrency[];
+    paymentMethodStats: PaymentMethodStats[];
+    paymentStatusStats: PaymentStatusStats[];
+  }
+  
