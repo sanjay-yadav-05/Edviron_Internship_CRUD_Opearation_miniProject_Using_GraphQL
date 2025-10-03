@@ -17,7 +17,7 @@ const PaymentDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(GET_PAYMENT_BY_ID, {
+  const { loading, error, data } = useQuery<[Payment]>(GET_PAYMENT_BY_ID, {
     variables: { id },
   });
 

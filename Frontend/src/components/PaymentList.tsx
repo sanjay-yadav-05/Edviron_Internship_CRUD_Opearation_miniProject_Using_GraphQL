@@ -24,7 +24,7 @@ interface Props {
 }
 
 const PaymentList: React.FC<Props> = ({ onEdit }) => {
-  const { loading, error, data } = useQuery(GET_ALL_PAYMENTS, {
+  const { loading, error, data } = useQuery<Payment[]>(GET_ALL_PAYMENTS, {
     pollInterval: 5000,
   });
 

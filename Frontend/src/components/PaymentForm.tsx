@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { CREATE_PAYMENT } from "../graphql/mutations";
 import { GET_ALL_PAYMENTS } from "../graphql/queries";
-import type { CreatePaymentInput, PaymentStatus } from "../graphql/types";
+import type { CreatePaymentInput, CreatePaymentResponse } from "../graphql/types";
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ const PaymentForm: React.FC = () => {
     description: "",
   });
 
-  const [createPayment, { loading, error, data }] = useMutation(
+  const [createPayment, { loading, error, data }] = useMutation<CreatePaymentResponse>(
     CREATE_PAYMENT,
     {
       refetchQueries: [{ query: GET_ALL_PAYMENTS }],

@@ -57,13 +57,38 @@ export const PaymentStatus = {
     createdAt: string;
     updatedAt: string;
   }
+  export interface Payments {
+    payment :[{
+    id: string;
+    userId: string;
+    amount: number;
+    currency: string;
+    method: string;
+    status: PaymentStatus;
+    transactionId?: string;
+    description?: string;
+    createdAt: string;
+    updatedAt: string;
+  }]}
   
+  
+
   export interface CreatePaymentInput {
     userId: string;
     amount: number;
     currency: string;
     method: string;
     description?: string;
+  }
+  export interface CreatePaymentResponse {
+    createPayment :{userId: string;
+    amount: number;
+    currency: string;
+    method: string;
+    description?: string;
+    id: string;
+    status : PaymentStatus;
+    createdAt : Date;}
   }
   
   export interface UpdatePaymentInput {
