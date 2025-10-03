@@ -170,13 +170,3 @@ db.payments.aggregate([
 ])
 ```
 
----
-
-## 👨‍💻 Author
-
-**Sanjay Yadav** – SDE Intern @ Edviron
-🚀 Passionate about full-stack development, scalable backend systems, and fintech solutions.
-
----
-
-Made with ❤️ using NestJS, GraphQL & MongoDB
