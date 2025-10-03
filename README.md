@@ -172,15 +172,6 @@ db.payments.aggregate([
 
 ---
 
-## 🏗 Future Improvements
-
-* 🔐 Add authentication & role-based access (admin vs user)
-* 💳 Integrate Razorpay/Stripe Sandbox APIs for real payment flow
-* 📈 Build analytics dashboard (NestJS + React/Next.js frontend)
-* 📦 Containerize with Docker for deployment
-
----
-
 ## 👨‍💻 Author
 
 **Sanjay Yadav** – SDE Intern @ Edviron
